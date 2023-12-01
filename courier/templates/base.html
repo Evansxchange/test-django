@@ -1,0 +1,43 @@
+{% load bootstrap5 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ title }}</title>
+</head>
+<body>
+  
+<nav class="navbar navbar-expand-lg bg-warning">
+  <div class="container-fluid">
+    <a class="navbar-brand fw-bold" href="/">Fast Parcel</a>
+
+    {% if not request.user.is_authenticated %}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"> </span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item {% if request.Get.next != '/courier/' %}active{% endif %}">
+          <a class="nav-link active" aria-current="page" href="/login/?next=/customer/">Customer</a>
+        </li>
+        <li class="nav-item  {% if request.Get.next ==  '/courier/' %}active{% endif %}">
+          <a class="nav-link active" aria-current="page" href="/login/?next=/courier/">Courier</a>
+        </li>
+       </ul>
+     </div>   
+     {% else %}  
+     <form class="form-inline">
+      <span>{{ request.user.get_full_name|title }}</span>
+      <a href="/logout" class="btn btn-outline-dark ms-3">logout</a>
+     </form>
+     {% endif %}
+ </nav>
+ {% block nav %}
+ {% endblock %}
+ 
+ <footer class="text-center mt-5 mb-5 fw-bold">&copy;PythonYoga.com</footer>
+</body>
+</html>
